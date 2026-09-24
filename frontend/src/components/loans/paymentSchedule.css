@@ -1,0 +1,763 @@
+/* ══════════════════════════════════════════════════════════════════════════════
+   PAYMENT SCHEDULE COMPONENT STYLES (LoanOS Enterprise)
+   ══════════════════════════════════════════════════════════════════════════════ */
+
+.ps-root {
+  display: flex;
+  height: calc(100vh - 72px - 60px); /* Fill dashboard container smoothly */
+  min-height: 650px;
+  background: #f8fafc;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 8px 24px rgba(122, 25, 44, 0.06);
+  border: 1px solid #e2e8f0;
+  position: relative;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ── Toast ── */
+.ps-toast {
+  position: fixed;
+  top: 24px;
+  right: 28px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  z-index: 9999;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  animation: psSlideIn 0.25s ease-out;
+}
+
+.ps-toast--success {
+  background: #065f46;
+  color: #ecfdf5;
+}
+
+.ps-toast--error {
+  background: #991b1b;
+  color: #fef2f2;
+}
+
+@keyframes psSlideIn {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ══════════════════════════════════════════════
+   LEFT BORROWERS PANEL
+   ══════════════════════════════════════════════ */
+.ps-borrowers-panel {
+  width: 290px;
+  min-width: 290px;
+  background: #ffffff;
+  border-right: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.ps-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.15rem 1.15rem 0.75rem 1.15rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.ps-panel-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #1e293b;
+}
+
+.ps-panel-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.ps-badge {
+  background: #f1f5f9;
+  color: #475569;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 20px;
+}
+
+.ps-search-wrap {
+  position: relative;
+  margin: 0.75rem 1.15rem;
+}
+
+.ps-search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #94a3b8;
+}
+
+.ps-search-input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.45rem 0.75rem 0.45rem 2rem;
+  font-size: 0.82rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #f8fafc;
+  color: #1e293b;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.ps-search-input:focus {
+  border-color: #7A192C;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(122, 25, 44, 0.08);
+}
+
+.ps-borrower-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 0.5rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.ps-borrower-item {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.65rem 0.65rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.18s;
+  margin-bottom: 2px;
+}
+
+.ps-borrower-item:hover {
+  background: #f1f5f9;
+}
+
+.ps-borrower-item.active {
+  background: #fff1f2;
+  border-left: 3px solid #7A192C;
+}
+
+.ps-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7A192C 0%, #9B2340 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 0.82rem;
+  flex-shrink: 0;
+}
+
+.ps-borrower-meta {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.ps-borrower-name {
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: #1e293b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ps-borrower-sub {
+  font-size: 0.72rem;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ps-loan-count-tag {
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.ps-loan-count-tag.has-loans {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+.ps-loan-count-tag.no-loans {
+  background: #f1f5f9;
+  color: #94a3b8;
+}
+
+.ps-empty-list {
+  padding: 2rem 1rem;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.82rem;
+}
+
+/* ══════════════════════════════════════════════
+   RIGHT MAIN PANEL
+   ══════════════════════════════════════════════ */
+.ps-main-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: 1.25rem 1.5rem;
+  gap: 1.2rem;
+}
+
+.ps-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: #94a3b8;
+  gap: 0.75rem;
+  text-align: center;
+}
+
+/* ── Customer Banner ── */
+.ps-customer-banner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: #ffffff;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.ps-cust-avatar-lg {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #7A192C 0%, #9B2340 100%);
+  color: #ffffff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(122, 25, 44, 0.2);
+}
+
+.ps-cust-header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.ps-cust-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
+}
+
+.ps-cust-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ps-chip {
+  font-size: 0.72rem;
+  color: #475569;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  padding: 2px 7px;
+  border-radius: 6px;
+}
+
+.ps-ml-auto {
+  margin-left: auto;
+}
+
+/* ── Loan Selector Bar ── */
+.ps-loans-selector-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #ffffff;
+  padding: 0.65rem 1rem;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+}
+
+.ps-selector-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.ps-loan-pills {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.ps-loan-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: #f8fafc;
+  cursor: pointer;
+  font-size: 0.78rem;
+  color: #334155;
+  transition: all 0.18s;
+  white-space: nowrap;
+}
+
+.ps-loan-pill:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.ps-loan-pill.active {
+  background: #7A192C;
+  color: #ffffff;
+  border-color: #7A192C;
+  box-shadow: 0 4px 10px rgba(122, 25, 44, 0.25);
+}
+
+.ps-pill-id {
+  font-weight: 700;
+  font-family: monospace;
+}
+
+.ps-pill-amt {
+  font-weight: 600;
+}
+
+.ps-pill-type {
+  text-transform: capitalize;
+  opacity: 0.85;
+}
+
+.ps-pill-status {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.ps-loan-pill.active .ps-pill-status {
+  background: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
+/* ── KPI Grid ── */
+.ps-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.9rem;
+}
+
+@media (max-width: 1024px) {
+  .ps-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.ps-kpi-card {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  padding: 1rem 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.ps-kpi-title {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ps-kpi-value {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.ps-kpi-sub {
+  font-size: 0.72rem;
+  color: #64748b;
+}
+
+.ps-kpi--paid .ps-kpi-value {
+  color: #059669;
+}
+
+.ps-kpi--remaining .ps-kpi-value {
+  color: #d97706;
+}
+
+.ps-kpi-progress {
+  width: 100%;
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 4px 0;
+}
+
+.ps-kpi-progress-bar {
+  height: 100%;
+  background: #10b981;
+  border-radius: 10px;
+  transition: width 0.4s ease;
+}
+
+.ps-text-danger {
+  color: #dc2626 !important;
+}
+
+.ps-text-success {
+  color: #059669 !important;
+}
+
+/* ── Table Container ── */
+.ps-table-container {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+}
+
+.ps-table-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1.15rem;
+  border-bottom: 1px solid #f1f5f9;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.ps-filters-group {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.ps-filter-btn {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.76rem;
+  font-weight: 600;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #475569;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.ps-filter-btn:hover {
+  background: #f8fafc;
+  color: #1e293b;
+}
+
+.ps-filter-btn.active {
+  background: #1e293b;
+  color: #ffffff;
+  border-color: #1e293b;
+}
+
+.ps-table-tools {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.ps-table-search {
+  padding: 0.35rem 0.65rem;
+  font-size: 0.78rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  outline: none;
+  background: #f8fafc;
+  color: #1e293b;
+}
+
+.ps-table-search:focus {
+  border-color: #7A192C;
+  background: #ffffff;
+}
+
+.ps-table-scroll {
+  overflow-x: auto;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.ps-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.83rem;
+  text-align: left;
+}
+
+.ps-table thead {
+  background: #f8fafc;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+}
+
+.ps-table th {
+  padding: 0.75rem 1rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  border-bottom: 1px solid #e2e8f0;
+  white-space: nowrap;
+}
+
+.ps-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #f1f5f9;
+  color: #334155;
+  white-space: nowrap;
+}
+
+.ps-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.ps-row-overdue {
+  background: #fff5f5 !important;
+}
+
+.ps-td-mono {
+  font-family: monospace;
+  font-weight: 600;
+  color: #64748b;
+}
+
+.ps-td-money {
+  font-family: monospace;
+  font-weight: 600;
+}
+
+.ps-emi-cell {
+  color: #0f172a;
+  font-weight: 700;
+}
+
+.ps-status-badge {
+  display: inline-block;
+  padding: 3px 8px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  border-radius: 20px;
+  letter-spacing: 0.03em;
+}
+
+.ps-due-overdue {
+  color: #b91c1c;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.ps-overdue-tag {
+  font-size: 0.62rem;
+  background: #fee2e2;
+  color: #991b1b;
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+/* ── Action Buttons ── */
+.ps-action-btn {
+  padding: 0.35rem 0.85rem;
+  font-size: 0.74rem;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.18s;
+  outline: none;
+}
+
+.ps-action-btn--pay {
+  background: #ecfdf5;
+  color: #065f46;
+  border-color: #a7f3d0;
+}
+
+.ps-action-btn--pay:hover {
+  background: #059669;
+  color: #ffffff;
+  border-color: #059669;
+}
+
+.ps-action-btn--pending {
+  background: #f1f5f9;
+  color: #475569;
+  border-color: #cbd5e1;
+}
+
+.ps-action-btn--pending:hover {
+  background: #fee2e2;
+  color: #991b1b;
+  border-color: #fca5a5;
+}
+
+.ps-action-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ── Generic Buttons ── */
+.ps-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: inherit;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s;
+}
+
+.ps-btn--primary {
+  background: #7A192C;
+  color: #ffffff;
+}
+
+.ps-btn--primary:hover {
+  background: #9B2340;
+}
+
+.ps-btn--ghost {
+  background: transparent;
+  color: #475569;
+  border: 1px solid #cbd5e1;
+}
+
+.ps-btn--ghost:hover {
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+.ps-btn--outline {
+  background: transparent;
+  border: 1px solid #cbd5e1;
+  color: #475569;
+}
+
+.ps-btn--outline:hover {
+  background: #f1f5f9;
+}
+
+.ps-btn--xs {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.72rem;
+}
+
+.ps-btn--sm {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.78rem;
+}
+
+.ps-btn--md {
+  padding: 0.55rem 1.15rem;
+  font-size: 0.85rem;
+}
+
+.ps-mt {
+  margin-top: 1rem;
+}
+
+/* ── Empty states & Loaders ── */
+.ps-empty-schedule {
+  padding: 3rem 1.5rem;
+  text-align: center;
+  color: #64748b;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ps-empty-icon {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.ps-no-loans-box {
+  background: #ffffff;
+  border: 1px dashed #cbd5e1;
+  border-radius: 12px;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  color: #64748b;
+}
+
+.ps-loader-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 2.5rem 0;
+  color: #64748b;
+  font-size: 0.82rem;
+}
+
+.ps-spinner {
+  width: 26px;
+  height: 26px;
+  border: 3px solid #e2e8f0;
+  border-top-color: #7A192C;
+  border-radius: 50%;
+  animation: psSpin 0.7s linear infinite;
+}
+
+@keyframes psSpin {
+  to { transform: rotate(360deg); }
+}
