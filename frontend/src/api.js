@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = "http://127.0.0.1:8000"
+const BASE_URL = "https://loan-management-rygl.onrender.com"
 
 const API = axios.create({
     baseURL: BASE_URL,
